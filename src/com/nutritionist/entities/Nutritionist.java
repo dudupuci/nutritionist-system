@@ -55,7 +55,7 @@ public class Nutritionist implements NutritionistResources {
 
 	@Override
 	public String toString() {
-		return "Nutritionist [name=" + name + ", function=" + specialty + ", salary=" + salary + "]";
+		return "Nutritionist [name=" + name + ", function=" + specialty + ", salary=" + salary +"]";
 	}
 
 	@Override

@@ -1,16 +1,15 @@
 package com.nutritionist;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.Set;
 
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.nutritionist.entities.Employee;
@@ -27,16 +26,19 @@ public class Application {
 		Locale.setDefault(Locale.US);
 		Scanner read = new Scanner(System.in);
 		Integer response = null;
+		Integer counter = 0;
+		Integer deleted = 0;
 
 		Nutritionist main = new Nutritionist("Ricardo Gatti", "Sportist", 1200.50);
 		List<Nutritionist> list = new ArrayList<>();
 		List<Patient> listPatient = new ArrayList<>();
 		List<Employee> listEmployee = new ArrayList<>();
-		Set<Object> all = new HashSet<>();
-
+		List<Object> all = new ArrayList<>();
+		JList<Object> jlist = new JList<>();
+		System.out.println("Welcome! Nutrition System v1.0 by @dudupuci");
 		try {
 			do {
-				System.out.println("Welcome! Nutrition System v1.0 by @dudupuci");
+				System.out.println("---------------- MAIN MENU -------------------");
 				System.out.println("(1) Acess Nutritionist's ");
 				System.out.println("(2) Acess Patients");
 				System.out.println("(3) Acess Employees");
@@ -77,6 +79,7 @@ public class Application {
 
 								Nutritionist n = new Nutritionist(name, specialty, salary);
 								n.registerNutritonist(list, n);
+								counter++;
 
 							}
 						} catch (NumberFormatException e) {
@@ -94,6 +97,7 @@ public class Application {
 							System.out.print("Delete by index: ");
 							Integer num = read.nextInt();
 							list.remove(num.intValue());
+							deleted++;
 
 						}
 
@@ -144,6 +148,7 @@ public class Application {
 										"Registered and saved! Nutritionist number #" + (i + 1) + " (" + name + ")");
 								Patient p = new Patient(name, sex, sdf.parse(birthDate), main);
 								p.registerPatient(listPatient, p);
+								counter++;
 
 							}
 						} catch (NumberFormatException e) {
@@ -166,7 +171,7 @@ public class Application {
 							System.out.print("Delete by index: ");
 							Integer num = read.nextInt();
 							listPatient.remove(num.intValue());
-
+							deleted++;
 						}
 
 						break;
@@ -216,6 +221,7 @@ public class Application {
 
 								Employee e = new Employee(name, function, salary);
 								e.registerEmployee(listEmployee, e);
+								counter++;
 
 							}
 						} catch (NumberFormatException e) {
@@ -233,6 +239,7 @@ public class Application {
 							System.out.print("Delete by index: ");
 							Integer num = read.nextInt();
 							listEmployee.remove(num.intValue());
+							deleted++;
 
 						}
 
@@ -255,11 +262,17 @@ public class Application {
 					}
 
 				} else if (response == 4) {
-					all.addAll(Arrays.asList(list, listEmployee, listPatient));
+					all.add(list);
+					all.add(listPatient);
+					all.add(listEmployee);
 
+					System.out.println("Total captured registers: " + counter + " new registers.");
+					System.out.println("Total captured deletes: " + deleted + " deletes.");
+					
 					for (Object obj : all) {
-						System.out.println(obj);
+						System.out.println("\n"+obj);
 					}
+
 				}
 
 			} while (response > 0 || response < 3);
