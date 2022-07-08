@@ -3,13 +3,10 @@ package com.nutritionist;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.Scanner;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.nutritionist.entities.Employee;
@@ -34,7 +31,6 @@ public class Application {
 		List<Patient> listPatient = new ArrayList<>();
 		List<Employee> listEmployee = new ArrayList<>();
 		List<Object> all = new ArrayList<>();
-		JList<Object> jlist = new JList<>();
 		System.out.println("Welcome! Nutrition System v1.0 by @dudupuci");
 		try {
 			do {
@@ -107,15 +103,12 @@ public class Application {
 						if (list.size() == 0) {
 							JOptionPane.showMessageDialog(null, "The list is empty", "Error captured",
 									JOptionPane.ERROR_MESSAGE);
-
 						} else {
 
 							for (Nutritionist x : list) {
 								System.out.println("Listed: " + x);
 							}
-
 						}
-
 						break;
 					}
 
@@ -268,9 +261,9 @@ public class Application {
 
 					System.out.println("Total captured registers: " + counter + " new registers.");
 					System.out.println("Total captured deletes: " + deleted + " deletes.");
-					
+
 					for (Object obj : all) {
-						System.out.println("\n"+obj);
+						System.out.println("\n" + obj);
 					}
 
 				}
