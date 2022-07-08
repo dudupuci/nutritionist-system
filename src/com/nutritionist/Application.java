@@ -1,14 +1,14 @@
 package com.nutritionist;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-import com.nutritionist.entities.Employee;
+import javax.swing.JOptionPane;
+
 import com.nutritionist.entities.Nutritionist;
-import com.nutritionist.entities.Patient;
 import com.nutritionist.exception.SystemException;
 
 public class Application {
@@ -20,10 +20,7 @@ public class Application {
 		Scanner read = new Scanner(System.in);
 		Integer response = null;
 
-		List<Nutritionist> set = new ArrayList<>();
-		Nutritionist nutritionist1 = new Nutritionist("Ricardo Gatti", "Sportist", 6400.50);
-		Patient patient1 = new Patient("Lorena Moran", 'F', Instant.now(), nutritionist1);
-		Employee employee1 = new Employee("Cristina Aguilera", "Anesthesist", 2520.50);
+		List<Nutritionist> list = new ArrayList<>();
 
 		try {
 			do {
@@ -46,29 +43,56 @@ public class Application {
 
 					switch (menuNutri) {
 					case 1:
-						System.out.print("Please, insert the quantity of registers:");
-						Integer registers = read.nextInt();
+
+						Integer registers = Integer
+								.parseInt(JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
+										"Registering Nutritionist's", JOptionPane.QUESTION_MESSAGE));
+
 						for (int i = 0; i < registers; i++) {
-							System.out.print("#" + (i + 1) + " Nutritionist name: ");
-							String name = read.next();
-							System.out.print("#" + (i + 1) + " Nutritionist specialty: ");
-							String specialty = read.next();
-							System.out.print("#" + (i + 1) + " Nutritionist salary: ");
-							Double salary = read.nextDouble();
-							System.out.println(
+							String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist name: ");
+							String specialty = JOptionPane.showInputDialog(null,
+									"#" + (i + 1) + " Nutritionist specialty: ");
+							Double salary = Double.parseDouble(
+									JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist salary: "));
+							// Registered.
+							JOptionPane.showMessageDialog(null,
 									"Registered and saved! Nutritionist number #" + (i + 1) + " (" + name + ")");
-							System.out.println();
+
 							Nutritionist n = new Nutritionist(name, specialty, salary);
-							n.registerNutritonist(set, n);
+							n.registerNutritonist(list, n);
+
 						}
+
 						break;
 					case 2:
+						if (list.size() == 0) {
+							JOptionPane.showMessageDialog(null, "The list is empty", "Error captured",
+									JOptionPane.ERROR_MESSAGE);
+
+						} else {
+
+							for (Nutritionist x : list) {
+								System.out.println(x);
+							}
+							System.out.print("Delete by index: ");
+							Integer num = read.nextInt();
+							list.remove(num.intValue());
+
+						}
 
 						break;
 
 					case 3:
-						for (Nutritionist x : set) {
-							System.out.println("Listed: " + x);
+						if (list.size() == 0) {
+							JOptionPane.showMessageDialog(null, "The list is empty", "Error captured",
+									JOptionPane.ERROR_MESSAGE);
+
+						} else {
+
+							for (Nutritionist x : list) {
+								System.out.println("Listed: " + x);
+							}
+
 						}
 
 						break;
@@ -92,7 +116,7 @@ public class Application {
 		} catch (SystemException e) {
 			System.out.println(e.getMessage());
 		} finally {
-			for (Nutritionist x : set) {
+			for (Nutritionist x : list) {
 				System.out.println(x);
 			}
 
