@@ -1,6 +1,10 @@
 package com.nutritionist.entities;
 
-public class Employee {
+import java.util.List;
+
+import com.nutritionist.entities.resources.EmployeeResources;
+
+public class Employee implements EmployeeResources {
 
 	private String name;
 	private String function;
@@ -42,6 +46,12 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [name=" + name + ", function=" + function + ", salary=" + salary + "]";
+	}
+
+	@Override
+	public void registerEmployee(List<Employee> list, Employee employee) {
+		list.add(employee);
+
 	}
 
 }

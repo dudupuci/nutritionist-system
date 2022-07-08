@@ -1,6 +1,5 @@
 package com.nutritionist.entities;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
