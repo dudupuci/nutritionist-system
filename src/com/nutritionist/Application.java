@@ -1,5 +1,6 @@
 package com.nutritionist;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,44 +40,47 @@ public class Application {
 				System.out.println("(1) Acess Nutritionist's ");
 				System.out.println("(2) Acess Patients");
 				System.out.println("(3) Acess Employees");
-				System.out.println("(0) Exit system (show all registers before)");
+				System.out.println("(4) Show all registers");
+				System.out.println("(0) Exit system");
 				response = read.nextInt();
 
 				if (response == 0) {
 					System.out.println("Exiting...");
 
 					System.exit(0);
+
 				} else if (response == 1) {
 
 					System.out.println("----------- N U T R I T I O N I S T' S ----------- ");
 					System.out.println("(1) Register a new Nutritionist");
 					System.out.println("(2) Delete a existent Nutritionist");
 					System.out.println("(3) Show all nutritionist's list");
-					System.out.println("(4) Show all registers");
-					System.out.println("(0) Just exit");
+					System.out.println("(0) Back");
 					Integer menuNutri = read.nextInt();
 
 					switch (menuNutri) {
 					case 1:
+						try {
+							Integer registers = Integer.parseInt(
+									JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
+											"Registering Nutritionist's", JOptionPane.QUESTION_MESSAGE));
 
-						Integer registers = Integer
-								.parseInt(JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
-										"Registering Nutritionist's", JOptionPane.QUESTION_MESSAGE));
+							for (int i = 0; i < registers; i++) {
+								String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist name: ");
+								String specialty = JOptionPane.showInputDialog(null,
+										"#" + (i + 1) + " Nutritionist specialty: ");
+								Double salary = Double.parseDouble(
+										JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist salary: "));
+								// Registered.
+								JOptionPane.showMessageDialog(null,
+										"Registered and saved! Nutritionist number #" + (i + 1) + " (" + name + ")");
 
-						for (int i = 0; i < registers; i++) {
-							String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist name: ");
-							String specialty = JOptionPane.showInputDialog(null,
-									"#" + (i + 1) + " Nutritionist specialty: ");
-							Double salary = Double.parseDouble(
-									JOptionPane.showInputDialog(null, "#" + (i + 1) + " Nutritionist salary: "));
-							// Registered.
-							JOptionPane.showMessageDialog(null,
-									"Registered and saved! Nutritionist number #" + (i + 1) + " (" + name + ")");
+								Nutritionist n = new Nutritionist(name, specialty, salary);
+								n.registerNutritonist(list, n);
 
-							Nutritionist n = new Nutritionist(name, specialty, salary);
-							n.registerNutritonist(list, n);
-						 
-
+							}
+						} catch (NumberFormatException e) {
+							System.out.println(e.getMessage());
 						}
 
 						break;
@@ -117,18 +121,20 @@ public class Application {
 					System.out.println("(1) Register a new Patient");
 					System.out.println("(2) Delete a existent Patient");
 					System.out.println("(3) Show all patient's list");
+					System.out.println("(0) Back");
 
 					Integer menuPatients = read.nextInt();
 
 					switch (menuPatients) {
 					case 1:
+						try {
 
-						Integer registers = Integer
-								.parseInt(JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
-										"Registering Patient's", JOptionPane.QUESTION_MESSAGE));
+							Integer registers = Integer.parseInt(
+									JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
+											"Registering Patient's", JOptionPane.QUESTION_MESSAGE));
 
-						for (int i = 0; i < registers; i++) {
-							try {
+							for (int i = 0; i < registers; i++) {
+
 								String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Patient name: ");
 								String sex = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Patient sex: ");
 								String birthDate = JOptionPane.showInputDialog(null,
@@ -139,9 +145,11 @@ public class Application {
 								Patient p = new Patient(name, sex, sdf.parse(birthDate), main);
 								p.registerPatient(listPatient, p);
 
-							} catch (ParseException e) {
-								System.out.println(e.getMessage());
 							}
+						} catch (NumberFormatException e) {
+							System.out.println(e.getMessage());
+						} catch (ParseException e) {
+							System.out.println(e.getMessage());
 						}
 
 						break;
@@ -185,28 +193,33 @@ public class Application {
 					System.out.println("(1) Register a new Employee");
 					System.out.println("(2) Delete a existent Employee");
 					System.out.println("(3) Show all employee's list");
+					System.out.println("(0) Back");
 
 					Integer menuEmployee = read.nextInt();
 
 					switch (menuEmployee) {
 					case 1:
+						try {
+							Integer registers = Integer.parseInt(
+									JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
+											"Registering Employee's", JOptionPane.QUESTION_MESSAGE));
 
-						Integer registers = Integer
-								.parseInt(JOptionPane.showInputDialog(null, "Please, enter the number of registers:",
-										"Registering Employee's", JOptionPane.QUESTION_MESSAGE));
+							for (int i = 0; i < registers; i++) {
+								String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Employee name: ");
+								String function = JOptionPane.showInputDialog(null,
+										"#" + (i + 1) + " Employee function: ");
+								Double salary = Double.parseDouble(
+										JOptionPane.showInputDialog(null, "#" + (i + 1) + " Employee salary: "));
+								// Registered.
+								JOptionPane.showMessageDialog(null,
+										"Registered and saved! Employee number #" + (i + 1) + " (" + name + ")");
 
-						for (int i = 0; i < registers; i++) {
-							String name = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Employee name: ");
-							String function = JOptionPane.showInputDialog(null, "#" + (i + 1) + " Employee function: ");
-							Double salary = Double.parseDouble(
-									JOptionPane.showInputDialog(null, "#" + (i + 1) + " Employee salary: "));
-							// Registered.
-							JOptionPane.showMessageDialog(null,
-									"Registered and saved! Employee number #" + (i + 1) + " (" + name + ")");
+								Employee e = new Employee(name, function, salary);
+								e.registerEmployee(listEmployee, e);
 
-							Employee e = new Employee(name, function, salary);
-							e.registerEmployee(listEmployee, e);
-
+							}
+						} catch (NumberFormatException e) {
+							System.out.println(e.getMessage());
 						}
 						break;
 
