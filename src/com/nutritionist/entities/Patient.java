@@ -1,18 +1,22 @@
 package com.nutritionist.entities;
 
 import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 
-public class Patient {
+import com.nutritionist.entities.resources.PatientResources;
+
+public class Patient implements PatientResources {
 
 	private String name;
-	private Character sex;
-	private Instant birthDate;
+	private String sex;
+	private Date birthDate;
 	private Nutritionist nutritionist;
 
 	public Patient() {
 	}
 
-	public Patient(String name, Character sex, Instant birthDate, Nutritionist nutritionist) {
+	public Patient(String name, String sex, Date birthDate, Nutritionist nutritionist) {
 		this.name = name;
 		this.sex = sex;
 		this.birthDate = birthDate;
@@ -27,19 +31,19 @@ public class Patient {
 		this.name = name;
 	}
 
-	public Character getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Character sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
-	public Instant getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Instant birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -53,9 +57,14 @@ public class Patient {
 
 	@Override
 	public String toString() {
-		return "Patient [name=" + name + ", sex=" + sex + ", birthDate=" + birthDate + ", nutritionist=" + nutritionist.getName()
-				+ "]";
+		return "Patient [name=" + name + ", sex=" + sex + ", birthDate=" + birthDate + ", nutritionist="
+				+ nutritionist.getName() + "]";
 	}
-	
+
+	@Override
+	public void registerPatient(List<Patient> list, Patient patient) {
+		list.add(patient);
+
+	}
 
 }
