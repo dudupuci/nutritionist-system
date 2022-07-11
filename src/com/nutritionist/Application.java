@@ -248,9 +248,7 @@ public class Application {
 							for (Employee x : listEmployee) {
 								System.out.println("Listed: " + x);
 							}
-
 						}
-
 						break;
 					}
 
